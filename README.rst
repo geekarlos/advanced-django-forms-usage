@@ -115,7 +115,7 @@ Sample Form:
         name = forms.CharField()
         
 
-Standard Views:
+Standard View:
 
 .. code-block:: python
 
@@ -133,3 +133,20 @@ Standard Views:
         else:
             form = MyForm()  # Form #2!
         return render(request, template_name, {'form': form})
+
+Shortcut view:
+
+.. code-block:: python
+
+    from django.shortcuts import render, redirect
+
+    from .forms import MyForm
+    
+    def my_view(request, template_name="myapp/my_form.html"):
+    
+        form = MyForm(request.POST or None)
+        if form.is_valid():
+            # custom logic here
+            return redirect('/')
+        return render(request, template_name, {'form': form})
+            
