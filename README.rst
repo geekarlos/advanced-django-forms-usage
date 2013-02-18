@@ -63,7 +63,28 @@ Forms Validate Dictionaries
     
     logger = logging.getLogger(__main__)
     
-    def my_form_view(request):
-        logging.debug(isinstance(request.POST, QueryDict)  # True
-        logging.debug(issubclass(QueryDict, (MultiValueDict, dict))  # True
+    def my_post_view(request):
+        logger.debug(isinstance(request.POST, QueryDict)  # True
+        logger.debug(issubclass(QueryDict, (MultiValueDict, dict))  # True
         return HttpResponse
+        
+Form Object Architecture
+=========================
+
+Bound forms contain 
+
+.. code-block:: python
+
+    import logging
+    from django.http import HttpResponse
+    from .forms import MyForm
+
+    logger = logging.getLogger(__main__)
+
+    def my_view(request):
+        # instantiate the MyForm class
+        form = MyForm(request.POST or None)  
+        
+        # An iterable of the form fields in order of display
+        logger.debug(form.fields)
+        logger.debug(form.fields['title'])
