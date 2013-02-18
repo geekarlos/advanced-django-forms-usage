@@ -74,7 +74,7 @@ The Basics
     forms.Form # class
     form = forms.Form() # object
     form.fields # iterable
-    form.fields[0] # dictionary?
+    form.fields['title'] # dictionary?
 
 Example
 ----------
