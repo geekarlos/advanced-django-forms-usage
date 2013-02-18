@@ -66,7 +66,7 @@ Forms Validate Dictionaries
     def my_post_view(request):
         logger.debug(isinstance(request.POST, QueryDict)  # True
         logger.debug(issubclass(QueryDict, (MultiValueDict, dict))  # True
-        return HttpResponse
+        return HttpResponse()
         
 Form Object Architecture
 =========================
@@ -88,3 +88,4 @@ Bound forms contain
         # An iterable of the form fields in order of display
         logger.debug(form.fields)
         logger.debug(form.fields['title'])
+        return HttpResponse()
