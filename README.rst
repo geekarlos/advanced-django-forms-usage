@@ -50,6 +50,12 @@ Forms Validate Dictionaries
 
 .. code-block:: python
 
+    {"title": "Advanced Django Forms Usage"}
+    {"title": ""}
+
+
+.. code-block:: python
+
     import logging
     
     from django.http import HttpResponse
