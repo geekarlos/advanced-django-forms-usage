@@ -101,3 +101,35 @@ Example
         logger.debug(form.fields)
         logger.debug(form.fields['title'])
         return HttpResponse()
+
+request.POST or None
+=====================
+
+Sample Form:
+
+.. code-block:: python
+
+    from django import forms
+
+    class MyForm(forms.MyForm):
+        name = forms.CharField()
+        
+
+Standard Views:
+
+.. code-block:: python
+
+    from django.shortcuts import render, redirect
+    
+    from .forms import MyForm
+    
+    def my_view(request, template_name="myapp/my_form.html"):
+    
+        if request.method == 'POST':
+            form = MyForm(request.POST)  # Form #1!
+            if form.is_valid(): # nested if!
+                # Custom logic here
+                return redirect('/')
+        else:
+            form = MyForm()  # Form #2!
+        return render(request, template_name, {'form': form})
