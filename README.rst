@@ -8,12 +8,7 @@ Right now this is just notes and ideas.
 
 Architecture of forms.Form:
 
-.. code-block:: python
 
-    forms.Form # class
-    form = forms.Form() # object
-    form.fields # list
-    form.fields[0] # dictionary?
     
 Abstract
 ========
@@ -71,7 +66,18 @@ Forms Validate Dictionaries
 Form Object Architecture
 =========================
 
-Bound forms contain 
+The Basics
+------------
+
+.. code-block:: python
+
+    forms.Form # class
+    form = forms.Form() # object
+    form.fields # iterable
+    form.fields[0] # dictionary?
+
+Example
+----------
 
 .. code-block:: python
 
