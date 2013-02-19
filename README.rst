@@ -155,4 +155,7 @@ Shortcut or anti-pattern
 
 .. code-block:: python
 
-    True == False
+    if True:
+        do_x()
+    if False:
+        do_y()
