@@ -233,12 +233,10 @@ NoSQL Form Example
 --------------------
 
 .. code-block:: python
-
-    from django import forms
     
     import nosql
     
-    class NoSqlBaseForm(forms.Form):
+    class NoSqlBaseFormMixin(object):
 
         def save(self, commit=True):
             if len(self.errors):
