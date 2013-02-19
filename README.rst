@@ -261,9 +261,9 @@ NoSQL Form Example
 
     from django import forms
     
-    from nosqlforms import NoSqlBaseForm
+    from nosqlforms import NoSqlBaseFormMixin
     
-    class MyForm(NoSqlBaseForm):
+    class MyForm(NoSqlBaseForm, forms.Form):
     
         title = forms.CharField(max_length=100, required=True)
         age = forms.IntegerField(required=True)
