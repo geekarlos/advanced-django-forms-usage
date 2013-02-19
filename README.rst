@@ -204,7 +204,6 @@ The Wrong Way
         profession = forms.CharField(required=True)
         bio = forms.TextField(required=True)
 
-        
         class Meta:
             model = MyModel
 
@@ -224,4 +223,7 @@ The Right Way
             self.fields['name'].required = True
             self.fields['age'].required = True
             self.fields['profession'].required = True
-            self.fields['profession'].help_text = "Hello, World"
+            self.fields['profession'].help_text = "Hello, PyCon!"
+
+        class Meta:
+            model = MyModel
