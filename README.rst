@@ -173,4 +173,55 @@ CBV: Modifying is_valid/invalid
         def form_invalid(self, form):
             # Do custom logic here
             return super(FlavorCreateView, self).form_invalid(form)
-            
+
+Don't Rewrite Models
+======================
+
+.. code-block:: python
+
+    from django.db import models
+    
+    class MyModel(models.Model):
+    
+        name = models.CharField(max_length=50, blank=True)
+        age = models.IntegerField(blank=True, null=True)
+        profession = models.CharField(max_length=100, blank=True)
+        bio = models.TextField(blank=True)
+
+The Wrong Way
+--------------
+
+.. code-block:: python
+
+    from django import forms
+    
+    from .models import MyModel
+    
+    class MyModelForm(forms.ModelForm):
+    
+        title = forms.CharField(max_length=100, required=True)
+        age = forms.IntegerField(required=True)
+        profession = forms.CharField(required=True)
+        bio = forms.TextField(required=True)
+
+        
+        class Meta:
+            model = MyModel
+
+The Right Way
+--------------
+
+.. code-block:: python
+
+    from django import forms
+    
+    from .models import MyModel
+
+    class MyModelForm(forms.ModelForm):
+        
+        def __init__(self, *args, **kwargs):
+            super(MyModelForm, self).__init__(*args, **kwargs)
+            self.fields['name'].required = True
+            self.fields['age'].required = True
+            self.fields['profession'].required = True
+            self.fields['profession'].help_text = "Hello, World"
