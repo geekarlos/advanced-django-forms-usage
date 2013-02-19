@@ -244,9 +244,26 @@ NoSQL Form Example
             if len(self.errors):
                 raise forms.ValidationError
             if commit:
-                instance, created = NoSqlLib.objects.get_or_create(
-                    **self.cleaned_data
-                )
+                if self.cleaned_data.pk:
+                    instance = NoSqlLib.create(
+                        **self.cleaned_data
+                    )
+                else:
+                    instance = NoSqlLib.updaye(
+                        **self.cleaned_data
+                    )
                 return instance
             return self.cleaned_data
             
+.. code-block:: python
+
+    from django import forms
+    
+    from nosqlforms import NoSqlBaseForm
+    
+    class MyForm(NoSqlBaseForm):
+    
+        title = forms.CharField(max_length=100, required=True)
+        age = forms.IntegerField(required=True)
+        profession = forms.CharField(required=True)
+        bio = forms.TextField(required=True)
