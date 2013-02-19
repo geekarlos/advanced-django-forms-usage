@@ -238,12 +238,7 @@ NoSQL Form Example
     
     import NoSqlLib
     
-    class MyNoSqlForm(forms.Form):
-    
-        name = models.CharField(max_length=100)
-        age = forms.IntegerField(required=True)
-        profession = forms.CharField(required=True)
-        bio = forms.TextField(required=True)
+    class NoSqlBaseForm(forms.Form):
 
         def save(self, commit=True):
             if len(self.errors):
