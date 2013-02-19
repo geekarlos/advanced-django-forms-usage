@@ -298,3 +298,36 @@ NoSQL Form Example
         def form_valid(self, form):
             form.save()
             return super(DataFormView, self).form_valid(form)
+
+request.POST or None with files
+================================
+
+.. code-block:: python
+
+    from django.shortcuts import render, redirect
+    
+    def my_view(request, template_name="myapp/my_form.html"):
+        """ Code donated by Audrey Roy """
+    
+        form = MyForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            # do something with the file here
+            return redirect('home')
+        return render(request, template_name, {'form': form})
+
+request.POST or None with ModelForms
+====================================
+
+    from django.shortcuts import render, redirect, get_object_or_404
+    
+    from .models import MyModel
+
+    def my_view(request, slug=slug, template_name="myapp/my_form.html"):
+        mymodel = get_object_or_404(MyModel, slug=slug)
+        form = MyForm(request.POST or None, instance=mymodel)
+        if form.is_valid():
+            mymodel = form.save(commit=False)
+            mymodel.edited_at_pycon = true
+            mymodel.save()
+            return redirect('home')
+        return render(request, template_name, {'form': form})
