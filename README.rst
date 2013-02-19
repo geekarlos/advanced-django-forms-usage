@@ -241,8 +241,8 @@ NoSQL Form Example
     class NoSqlBaseFormMixin(object):
 
         def save(self, commit=True):
-            if len(self.errors):
-                raise forms.ValidationError
+        if form.errors:
+            raise ValueError("No form save because of invalid data")
             if commit:
                 if 'pk' in self.cleaned_data.pk: 
                     # add data
