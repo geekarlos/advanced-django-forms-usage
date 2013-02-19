@@ -236,7 +236,7 @@ NoSQL Form Example
 
     from django import forms
     
-    import nosql
+    import nosql  # Use the nosql library of your choice
     
     class NoSqlBaseFormMixin(object):
 
