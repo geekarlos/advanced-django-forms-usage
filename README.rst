@@ -227,3 +227,30 @@ The Right Way
 
         class Meta:
             model = MyModel
+
+
+NoSQL Form Example
+--------------------
+
+.. code-block:: python
+
+    from django import forms
+    
+    import NoSqlLib
+    
+    class MyNoSqlForm(forms.Form):
+    
+        name = models.CharField(max_length=100)
+        age = forms.IntegerField(required=True)
+        profession = forms.CharField(required=True)
+        bio = forms.TextField(required=True)
+
+        def save(self, commit=True):
+            if len(self.errors):
+                raise forms.ValidationError
+            instance, created = NoSqlLib.objects.get_or_create(
+                **self.cleaned_data
+            )
+            return instance
+            
+            
