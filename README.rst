@@ -149,4 +149,10 @@ Shortcut view:
             # custom logic here
             return redirect('/')
         return render(request, template_name, {'form': form})
-            
+
+Shortcut or anti-pattern
+========================
+
+.. code-block:: python
+
+    True == False
