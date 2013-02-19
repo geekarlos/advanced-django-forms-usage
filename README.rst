@@ -327,6 +327,7 @@ request.POST or None with ModelForms
     from .models import MyModel
 
     def my_view(request, slug=slug, template_name="myapp/my_form.html"):
+        """ Code donated by Audrey Roy """
         mymodel = get_object_or_404(MyModel, slug=slug)
         form = MyForm(request.POST or None, instance=mymodel)
         if form.is_valid():
