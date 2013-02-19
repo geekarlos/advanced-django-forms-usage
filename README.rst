@@ -159,3 +159,18 @@ Shortcut or anti-pattern
         do_x()
     if False:
         do_y()
+        
+CBV: Modifying is_valid/invalid
+=================================
+
+.. code-block:: python
+
+    class MyView(FormView|CreateView|UpdateView):
+        def form_valid(self, form):
+            # Do custom logic here
+            return super(MyView, self).form_valid(form)
+        
+        def form_invalid(self, form):
+            # Do custom logic here
+            return super(FlavorCreateView, self).form_invalid(form)
+            
