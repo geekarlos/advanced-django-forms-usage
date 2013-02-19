@@ -318,7 +318,11 @@ request.POST or None with files
 request.POST or None with ModelForms
 ====================================
 
-    from django.shortcuts import render, redirect, get_object_or_404
+.. code-block:: python
+
+    from django.shortcuts import (
+        render, redirect, get_object_or_404
+    )
     
     from .models import MyModel
 
