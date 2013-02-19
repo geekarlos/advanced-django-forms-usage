@@ -263,9 +263,38 @@ NoSQL Form Example
     
     from nosqlforms import NoSqlBaseFormMixin
     
-    class MyForm(NoSqlBaseForm, forms.Form):
+    class NoSqlForm(NoSqlBaseFormMixin, forms.Form):
     
         title = forms.CharField(max_length=100, required=True)
         age = forms.IntegerField(required=True)
         profession = forms.CharField(required=True)
         bio = forms.TextField(required=True)
+
+.. code-block:: python
+
+    from django.shortcuts import render, redirect
+
+    from .forms import NoSqlForm
+    
+    def data_form(request, template_name="data/data_form.html"):
+        form = NoSqlForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        return render(request, template_name, {'form': form})
+    
+
+.. code-block:: python
+
+    from django.views.generic import FormView
+    
+    from .forms import NoSqlForm
+    
+    class DataFormView(FormView):
+    
+        form_class = NoSqlForm
+        template_name = "data/data_form.html"
+        
+        def form_valid(self, form):
+            form.save()
+            return super(DataFormView, self).form_valid(form)
