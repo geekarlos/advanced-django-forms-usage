@@ -233,6 +233,8 @@ NoSQL Form Example
 --------------------
 
 .. code-block:: python
+
+    from django import forms
     
     import nosql
     
