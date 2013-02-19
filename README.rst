@@ -236,7 +236,7 @@ NoSQL Form Example
 
     from django import forms
     
-    import NoSqlLib
+    import nosql
     
     class NoSqlBaseForm(forms.Form):
 
@@ -245,11 +245,11 @@ NoSQL Form Example
                 raise forms.ValidationError
             if commit:
                 if self.cleaned_data.pk:
-                    instance = NoSqlLib.create(
+                    instance = NoSqlLib.update(
                         **self.cleaned_data
                     )
                 else:
-                    instance = NoSqlLib.updaye(
+                    instance = nosql.insert(
                         **self.cleaned_data
                     )
                 return instance
