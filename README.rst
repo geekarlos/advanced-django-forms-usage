@@ -248,9 +248,10 @@ NoSQL Form Example
         def save(self, commit=True):
             if len(self.errors):
                 raise forms.ValidationError
-            instance, created = NoSqlLib.objects.get_or_create(
-                **self.cleaned_data
-            )
-            return instance
-            
+            if commit:
+                instance, created = NoSqlLib.objects.get_or_create(
+                    **self.cleaned_data
+                )
+                return instance
+            return self.cleaned_data
             
