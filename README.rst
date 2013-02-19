@@ -244,8 +244,7 @@ NoSQL Form Example
             if len(self.errors):
                 raise forms.ValidationError
             if commit:
-                # Use pk, id, or whatever you call your key
-                if self.cleaned_data.pk: 
+                if 'pk' in self.cleaned_data.pk: 
                     # add data
                     instance = NoSqlLib.update(
                         **self.cleaned_data
