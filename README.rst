@@ -44,6 +44,53 @@ Material covered::
 
 7. Adding date widgets the easy way [3 min]
 
+Dynamically adding fields to a FBV
+====================================
+
+def my_form_view(request, template_name="myapp/form.html"):
+
+    form = MyForm(request.POST or None)
+    form['favorite_icecream'] = forms.ChoiceField(
+        label="What is your favorite flavor from this list?",
+        choices=((0, "Chocolate"), (1, "Vanilla"), (2, "Berry")),
+        widget=forms.RadioSelect,
+        required=True
+    )
+    if form.is_valid():
+        # lets get user's favorite ice cream.
+        # You can do anything you want with it
+        favorite_icecream = form.cleaned_data['favorite_icecream']
+
+        form.save()
+        return redirect('home')
+    return form
+
+Dynamically adding fields to a CBV
+====================================
+
+.. code-block:: python
+
+    class MyCustomFormView(UpdateView)
+    
+        def get_form(self, form_class):
+            """ Overloads the default FormMixin.get_form() method
+            """
+            form = form_class(**self.get_form_kwargs())
+            form['favorite_icecream'] = forms.ChoiceField(
+                label="What is your favorite flavor from this list?",
+                choices=((0, "Chocolate"), (1, "Vanilla"), (2, "Berry")),
+                widget=forms.RadioSelect,
+                required=True
+            )
+            return form
+
+        def form_valid(self, form):
+            # lets get user's favorite ice cream.
+            # You can do anything you want with it
+            favorite_icecream = form.cleaned_data['favorite_icecream']
+
+            return super(MyCustomFormView, self).form_valid(form)
+
 
 Forms Validate Dictionaries
 ===========================
@@ -354,21 +401,3 @@ Try it with inheritance!
             self.fields['confirm_email'].label = _("Confirm your email")
             self.fields['confirm_email'].help_text = _("We want to make sure!")
 
-Dynamically adding fields to a CBV
-====================================
-
-.. code-block:: python
-
-    class MyCustomFormView(UpdateView)
-    
-        def get_form(self, form_class):
-            """ Overloads the default FormMixin.get_form() method
-            """
-            form = form_class(**self.get_form_kwargs())
-            form['favorite_icecream'] = forms.ChoiceField(
-                label="What is your favorite flavor from this list?",
-                choices=((0, "Chocolate"), (1, "Vanilla"), (2, "Berry")),
-                widget=forms.RadioSelect,
-                required=True
-            )
-            return form
