@@ -336,3 +336,20 @@ request.POST or None with ModelForms
             mymodel.save()
             return redirect('home')
         return render(request, template_name, {'form': form})
+
+Try it with inheritance!
+====================================
+
+.. code-block:: python
+
+    class BaseEmailForm(forms.Form):
+        email = forms.EmailField(_("Email"))
+        confirm_email = forms.EmailField(_("Email 2"))
+
+    class ContactForm(BaseEmailForm):
+        message = forms.CharField(_("Message"))
+
+        def __init__(self, *args, **kwargs):
+            super(ContactForm, self).__init__(*args, **kwargs):
+            self.fields['confirm_email'].label = _("Confirm your email")
+            self.fields['confirm_email'].help_text = _("We want to make sure!")
