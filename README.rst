@@ -353,3 +353,22 @@ Try it with inheritance!
             super(ContactForm, self).__init__(*args, **kwargs):
             self.fields['confirm_email'].label = _("Confirm your email")
             self.fields['confirm_email'].help_text = _("We want to make sure!")
+
+Dynamically adding fields to a CBV
+====================================
+
+.. code-block:: python
+
+class MyCustomFormView(UpdateView)
+
+    def get_form(self, form_class):
+        """ Overloads the default FormMixin.get_form() method
+        """
+        form = form_class(**self.get_form_kwargs())
+        form['favorite_icecream'] = forms.ChoiceField(
+            label="What is your favorite flavor from this list?",
+            choices=((0, "Chocolate"), (1, "Vanilla"), (2, "Berry")),
+            widget=forms.RadioSelect,
+            required=True
+        )
+        return form
