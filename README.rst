@@ -72,18 +72,22 @@ Dynamically adding fields to a CBV
 
 .. code-block:: python
 
+    def flavor_field():
+        return forms.ChoiceField(
+                label="What is your favorite flavor from this list?",
+                choices=((0, "Chocolate"), (1, "Vanilla"), (2, "Berry")),
+                widget=forms.RadioSelect,
+                required=True
+            )
+        
+
     class MyCustomFormView(UpdateView)
     
         def get_form(self, form_class):
             """ Overloads the default FormMixin.get_form() method
             """
             form = form_class(**self.get_form_kwargs())
-            form['favorite_icecream'] = forms.ChoiceField(
-                label="What is your favorite flavor from this list?",
-                choices=((0, "Chocolate"), (1, "Vanilla"), (2, "Berry")),
-                widget=forms.RadioSelect,
-                required=True
-            )
+            form = flavor_field()
             return form
 
         def form_valid(self, form):
